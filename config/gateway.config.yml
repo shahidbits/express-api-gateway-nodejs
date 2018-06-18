@@ -1,0 +1,47 @@
+http:
+  port: 8080
+admin:
+  port: 9876
+  hostname: localhost
+apiEndpoints:
+  memberApi:
+    host: localhost
+    paths:
+      - '/api'
+      - '/api/*'
+  publicApi:
+      host: localhost
+      paths:
+        - '/public/api'
+        - '/public/api/*'
+serviceEndpoints:
+  memberService:
+    url: 'http://localhost:9090'
+  publicService:
+    url: 'http://localhost:7070'
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  - name: memberPipeline #-- Pipeline for members
+    apiEndpoints:
+      - memberApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: memberService
+            changeOrigin: true
+  - name: publicPipeline #-- Pipeline for public
+    apiEndpoints:
+      - publicApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: publicService
+            changeOrigin: true

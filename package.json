@@ -1,0 +1,12 @@
+{
+    "author": "Mohammad Shahid",
+    "name": "api-gateway",
+    "description": "API Gateway",
+    "repository": {},
+    "license": "",
+    "version": "0.0.1",
+    "main": "server.js",
+    "dependencies": {
+        "express-gateway": "^1.9.1"
+    }
+}
